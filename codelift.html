@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CodeLift — услуги и уроки по коду с ИИ</title>
+<style>
+:root{--ink:#14151a;--mute:#666b78;--line:#e9eaf0;--soft:#f6f7fb;--a:#5b4bff;--b:#9b5cff}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;font-size:16px}
+body{background:#fff;color:var(--ink);font:1rem/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.logo{position:absolute;top:18px;left:16px;font-weight:800;font-size:20px}.logo span{color:var(--a)}
+section{min-height:100vh;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding:76px 16px 48px}
+.wrap{width:100%;max-width:1040px;margin:0 auto;opacity:.25;transform:translateY(18px);transition:.6s ease}
+section.on .wrap{opacity:1;transform:none}
+h1{font-size:clamp(32px,6vw,64px);line-height:1.08;letter-spacing:-.03em;margin-bottom:18px}
+h2{font-size:clamp(26px,4vw,40px);letter-spacing:-.02em;margin-bottom:8px}
+h3{font-size:18px;margin-bottom:6px}
+.grad{background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mute);max-width:620px;margin-bottom:26px}
+.btn{display:inline-block;border:0;border-radius:99px;padding:12px 22px;background:linear-gradient(90deg,var(--a),var(--b));color:#fff;font-weight:600;transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px #14151a33}
+.btn.alt{background:var(--soft);color:var(--ink)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.card{border:1px solid var(--line);border-radius:22px;padding:20px;background:#fff;display:flex;flex-direction:column;gap:8px;transition:.3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 40px #14151a12}
+.card p,.card li{color:var(--mute);font-size:15px}.card ul,.card ol{padding-left:18px}
+.card .btn{margin-top:auto;align-self:flex-start;padding:9px 18px}
+.num{font-weight:800;font-size:14px;color:var(--a);letter-spacing:.08em}
+.price{font-weight:700}
+.lessons{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;max-width:760px}
+.lesson{min-width:0;overflow-wrap:anywhere}
+.lesson{border:1px solid var(--line);border-radius:18px;padding:16px 20px}
+.lesson h4{margin:18px 0 4px}.lesson p{color:#444956}
+.lesson summary span{display:block;font-weight:400;font-size:14px;color:var(--mute)}
+pre{background:var(--soft);border-radius:12px;padding:12px 14px;white-space:pre-wrap;font-size:14px;margin:8px 0}
+summary{cursor:pointer;font-weight:600}
+form{display:grid;gap:12px;max-width:520px}
+input,select,textarea{width:100%;border:1px solid var(--line);background:var(--soft);border-radius:14px;padding:12px 14px}
+.gear{position:fixed;top:14px;right:16px;z-index:3;border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 16px;box-shadow:0 6px 18px #14151a14}
+.panel{position:fixed;top:62px;right:16px;z-index:3;width:260px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:14px;box-shadow:0 18px 40px #14151a22}
+.panel[hidden]{display:none}
+.colors{display:flex;gap:10px;margin-top:6px}
+.colors button{width:30px;height:30px;border-radius:50%;border:3px solid #fff;outline:1px solid var(--line)}
+.colors button.on{outline:2px solid var(--ink)}
+.panel label{display:flex;gap:8px;align-items:center}.panel input{width:auto}
+.calm{scroll-behavior:auto}.calm *{transition:none!important}.calm .wrap{opacity:1;transform:none}
+.note{margin-top:20px;font-size:13px;color:var(--mute)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<button class="gear" id="gear" aria-expanded="false">Настройки</button>
+<div class="panel" id="panel" hidden>
+  <div>Цвет сайта<div class="colors" id="colors"></div></div>
+  <div>Размер текста<select id="size"><option value="15px">Мелкий</option><option value="16px">Обычный</option><option value="18px">Крупный</option></select></div>
+  <label><input type="checkbox" id="anim"> Плавные анимации</label>
+</div>
+<main>
+<section><div class="logo">Code<span>Lift</span></div><div class="wrap">
+  <h1>Сайты, боты и обучение<br><span class="grad">с помощью ИИ</span></h1>
+  <p class="sub">Делаем цифровые продукты для бизнеса и учим зарабатывать на программировании вместе с Claude и ChatGPT.</p>
+  <div class="row"><button class="btn" data-go="1">Смотреть услуги</button><button class="btn alt" data-go="2">Уроки</button></div>
+  <p class="note">Листайте вверх.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Услуги</h2><p class="sub">Цены ориентировочные — точная сумма после обсуждения задачи.</p>
+  <div class="grid" id="services"></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Уроки</h2><p class="sub">Шесть текстовых уроков: от первого запроса до первого заказа.</p>
+  <div class="lessons" id="lessons"></div>
+  <p class="note">Доход не гарантирован: он зависит от навыков, времени и спроса.</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Как работаем</h2><p class="sub">Четыре понятных шага.</p>
+  <div class="grid">
+    <div class="card"><div class="num">01</div><h3>Заявка</h3><p>Вы описываете задачу своими словами.</p></div>
+    <div class="card"><div class="num">02</div><h3>План и цена</h3><p>Согласуем объём, срок и стоимость до начала работы.</p></div>
+    <div class="card"><div class="num">03</div><h3>Разработка</h3><p>Показываем черновик и вносим правки.</p></div>
+    <div class="card"><div class="num">04</div><h3>Запуск</h3><p>Передаём готовый результат и объясняем, как им пользоваться.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Оставить заявку</h2><p class="sub">Заполните форму — откроется письмо с вашей заявкой.</p>
+  <form id="form">
+    <input name="name" placeholder="Ваше имя" required>
+    <input name="contact" placeholder="Telegram, телефон или email" required>
+    <select name="service" id="select"></select>
+    <textarea name="text" rows="4" placeholder="Опишите задачу"></textarea>
+    <button class="btn">Отправить</button>
+    <p class="note" id="status" role="status"></p>
+  </form>
+</div></section>
+</main>
+<script>
+// ===== НАСТРОЙКИ: меняйте здесь =====
+const EMAIL = ""; // ваша почта для заявок, например "name@domain.ru"
+
+const services = [
+ ["Лендинг под ключ","Одностраничный сайт с адаптацией под телефон.","от 15 000 ₽"],
+ ["Интернет-магазин","Каталог, корзина и приём заказов.","от 50 000 ₽"],
+ ["Telegram-бот","Запись клиентов, ответы на вопросы, уведомления.","от 10 000 ₽"],
+ ["ИИ-ассистент","Помощник на Claude или ChatGPT по вашей базе знаний.","от 30 000 ₽"],
+ ["Автоматизация рутины","Скрипты для таблиц, отчётов и рассылок по согласию получателей.","от 8 000 ₽"],
+ ["UI-дизайн","Макеты сайта или приложения в светлом современном стиле.","от 12 000 ₽"],
+ ["Поддержка и исправление багов","Чиним, ускоряем и обновляем готовые проекты.","от 3 000 ₽"],
+ ["Личное наставничество","Разбор вашего кода и план роста один на один.","от 2 500 ₽ / час"]
+];
+
+const lessons = [
+["Старт: Claude и ChatGPT для кода",`
+<p>Claude и ChatGPT пишут и объясняют код по обычному описанию. Ваша задача — ясно ставить цель и проверять результат.</p>
+<h4>Хороший запрос</h4><p>Укажите цель, для кого она, что должно получиться и ограничения.</p>
+<pre>Сделай одностраничный сайт для кофейни одним HTML-файлом. Блоки: меню, адрес, часы работы. Светлый стиль, удобно с телефона. Если данных не хватает, сначала спроси.</pre>
+<h4>Проверка</h4><p>Сохраните код в файл index.html и откройте в браузере. Нажмите все кнопки, сузьте окно. Что не работает — опишите в том же чате.</p>
+<h4>Задание</h4><p>Сделайте страницу о себе и внесите три правки через ИИ.</p>`],
+["Лендинг для клиента",`
+<h4>1. Бриф</h4><p>Спросите: чем занимаетесь, кто клиент, какое действие нужно от посетителя, есть ли фото и тексты, какой срок.</p>
+<h4>2. Структура</h4><pre>Вот ответы клиента: [вставьте]. Предложи структуру лендинга и тексты. Не выдумывай отзывы, цифры и факты.</pre>
+<h4>3. Код и проверка</h4><p>Попросите собрать страницу по согласованной структуре. Проверьте телефон, ссылки, форму и орфографию.</p>
+<h4>4. Публикация</h4><p>Для простого сайта подойдут GitHub Pages или другой статический хостинг.</p>
+<h4>Задание</h4><p>Соберите учебный лендинг для вымышленной студии и подпишите, что это пример.</p>`],
+["Telegram-бот на Python",`
+<h4>1. Подготовка</h4><p>Установите Python. В Telegram откройте BotFather, отправьте /newbot и получите токен. Токен — это пароль: не отправляйте его в чаты и не публикуйте.</p>
+<h4>2. Библиотека</h4><pre>pip install pyTelegramBotAPI</pre>
+<h4>3. Код</h4><pre>import os, telebot
+bot = telebot.TeleBot(os.environ["BOT_TOKEN"])
+
+@bot.message_handler(commands=["start"])
+def start(m):
+    bot.reply_to(m, "Здравствуйте! Напишите ваш вопрос.")
+
+bot.infinity_polling()</pre>
+<h4>4. Запуск</h4><p>Задайте переменную окружения BOT_TOKEN и выполните python bot.py. Бот отвечает, пока программа запущена.</p>
+<h4>Задание</h4><p>Попросите ИИ добавить команду /price.</p>`],
+["Исправляем ошибки с ИИ",`
+<p>Не пишите просто «не работает». Дайте четыре вещи.</p>
+<pre>Что делаю: [действие]
+Чего жду: [результат]
+Что происходит: [текст ошибки целиком]
+Код: [нужный фрагмент без паролей и ключей]</pre>
+<p>Попросите назвать вероятные причины и способ проверить каждую. Меняйте по одной вещи за раз и сохраняйте рабочую копию.</p>
+<h4>Задание</h4><p>Уберите скобку в своём коде и разберите ошибку по этому шаблону.</p>`],
+["Где искать первые заказы",`
+<h4>Портфолио</h4><p>Сделайте три работы: лендинг, бот и небольшую автоматизацию. Учебные проекты так и называйте.</p>
+<h4>Где искать</h4><p>Фриланс-биржи, знакомые предприниматели, местный бизнес.</p>
+<h4>Отклик</h4><pre>Здравствуйте! Понял задачу так: [своими словами]. Похожий пример: [ссылка]. Уточню: [один вопрос]. Срок после ответа назову точно.</pre>
+<p>Не обещайте того, чего не умеете. Если заказчик просит заплатить за доступ к работе — откажитесь.</p>
+<h4>Задание</h4><p>Найдите пять подходящих заказов и напишите отклики.</p>`],
+["Как назначить цену",`
+<p>Простая формула: часы × ставка + запас на правки.</p>
+<p>Пример: 8 часов × 1 000 ₽ = 8 000 ₽, запас 20% — итого 9 600 ₽. Это пример расчёта, а не рыночная норма.</p>
+<h4>До начала согласуйте</h4><p>Что именно будет готово, срок, число правок, предоплату и оплату по этапам. Всё фиксируйте письменно.</p>
+<h4>Задание</h4><p>Посчитайте цену лендинга из второго урока.</p>`]
+];
+// ====================================
+
+const $ = s => document.querySelector(s);
+const pages = [...document.querySelectorAll("section")];
+
+$("#services").innerHTML = services.map(([t,d,p]) =>
+ `<article class="card"><h3>${t}</h3><p>${d}</p><div class="price">${p}</div><button class="btn" data-order="${t}">Заказать</button></article>`).join("");
+
+$("#lessons").innerHTML = lessons.map(([t,body],n) =>
+ `<details class="lesson" name="lesson"><summary>${t}<span>Урок ${n+1}</span></summary>${body}</details>`).join("");
+
+$("#select").innerHTML = services.map(s => `<option>${s[0]}</option>`).join("") + "<option>Другое</option>";
+const go = i => pages[i].scrollIntoView();
+const seen = new IntersectionObserver(list => list.forEach(x => { if(x.isIntersecting) x.target.classList.add("on"); }), {rootMargin:"-30% 0px"});
+pages.forEach(p => seen.observe(p));
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-go]"), o = e.target.closest("[data-order]");
+  if(g) go(+g.dataset.go);
+  if(o){ $("#select").value = o.dataset.order; go(4); }
+});
+
+const palette = [["#5b4bff","#9b5cff","Фиолетовый"],["#0a6cff","#00a8e8","Синий"],["#0b8f6a","#2bb673","Зелёный"],["#14151a","#4a4f5c","Графит"]];
+let set = {color:0, size:"16px", anim:true};
+try { Object.assign(set, JSON.parse(localStorage.getItem("codelift"))); } catch(e){}
+$("#colors").innerHTML = palette.map((c,i) => `<button data-color="${i}" style="background:${c[0]}" aria-label="${c[2]}"></button>`).join("");
+function apply(){
+  const root = document.documentElement, c = palette[set.color] || palette[0];
+  root.style.setProperty("--a", c[0]); root.style.setProperty("--b", c[1]);
+  root.style.fontSize = set.size; root.classList.toggle("calm", !set.anim);
+  $("#size").value = set.size; $("#anim").checked = set.anim;
+  [...$("#colors").children].forEach((b,i) => b.classList.toggle("on", i===set.color));
+  try { localStorage.setItem("codelift", JSON.stringify(set)); } catch(e){}
+}
+$("#colors").onclick = e => { if(e.target.dataset.color){ set.color = +e.target.dataset.color; apply(); } };
+$("#size").onchange = e => { set.size = e.target.value; apply(); };
+$("#anim").onchange = e => { set.anim = e.target.checked; apply(); };
+$("#gear").onclick = () => { $("#panel").hidden = !$("#panel").hidden; $("#gear").setAttribute("aria-expanded", !$("#panel").hidden); };
+apply();
+
+$("#form").onsubmit = e => {
+  e.preventDefault();
+  if(!EMAIL){ $("#status").textContent = "Приём заявок ещё не настроен: заявка не отправлена."; return; }
+  const f = new FormData(e.target);
+  const body = `Имя: ${f.get("name")}\nКонтакт: ${f.get("contact")}\nУслуга: ${f.get("service")}\n\n${f.get("text")}`;
+  location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Заявка с сайта")}&body=${encodeURIComponent(body)}`;
+  $("#status").textContent = "Открываем почту — нажмите там «Отправить».";
+};
+</script>
+</body>
+</html>
